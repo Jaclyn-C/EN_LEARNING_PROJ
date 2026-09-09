@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+/*
+ * Tailwind v4：把语义色映射到运行时 CSS 变量（--enl-*，由 ThemeProvider 写入根节点）。
+ * 用 @theme inline 让工具类直接内联 var() 引用，切主题即时生效、无需重编译。
+ * 业务代码写 bg-primary / text-text-strong / shadow-card 等类名，禁止写死色值。
+ */
+@theme inline {
+  --color-primary: var(--enl-primary, #7d7fa8);
+  --color-primary-deep: var(--enl-primary-deep, #66688f);
+  --color-text-strong: var(--enl-text-strong, #3e4157);
+  --color-text-secondary: var(--enl-text-secondary, #82859b);
+  --color-bg-from: var(--enl-bg-from, #f5f6fa);
+  --color-bg-to: var(--enl-bg-to, #edecf4);
+
+  --color-accent-info-bg: var(--enl-accent-info-bg, #d7ddea);
+  --color-accent-info-text: var(--enl-accent-info-text, #66738f);
+  --color-accent-purple-bg: var(--enl-accent-purple-bg, #ddd8e8);
+  --color-accent-purple-text: var(--enl-accent-purple-text, #76708c);
+  --color-accent-success-bg: var(--enl-accent-success-bg, #d6ddd3);
+  --color-accent-success-text: var(--enl-accent-success-text, #6f8170);
+  --color-accent-error-bg: var(--enl-accent-error-bg, #e3cfd6);
+  --color-accent-error-text: var(--enl-accent-error-text, #8f7080);
+
+  /* 卡片/按钮阴影带主色调（设计稿 §3.3），色值跟随主题 */
+  --shadow-card: 0 8px 24px var(--enl-shadow, rgba(125, 127, 168, 0.12));
+  --shadow-cta: 0 4px 12px var(--enl-shadow, rgba(125, 127, 168, 0.12));
+
+  --radius-card: var(--enl-radius-card, 18px);
+  --radius-ctl: var(--enl-radius-ctl, 12px);
+}
+
+/* 字体（设计稿 §3.3 系统圆润栈） */
+@theme {
+  --font-sans: -apple-system, "PingFang SC", "HarmonyOS Sans SC", "MiSans", "Segoe UI",
+    sans-serif;
+  --font-mono: "SF Mono", ui-monospace, monospace;
+}
+
+/* 全局底：135° 淡渐变固定铺满（色值由主题变量驱动，fallback 为默认主题 iris） */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100vh;
+  }
+
+  body {
+    margin: 0;
+    background: linear-gradient(
+        135deg,
+        var(--enl-bg-from, #f5f6fa),
+        var(--enl-bg-to, #edecf4)
+      )
+      fixed;
+    color: var(--enl-text-strong, #3e4157);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}

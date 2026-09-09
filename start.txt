@@ -1,0 +1,2 @@
+主题演示页：cd web && pnpm dev → http://localhost:5173（切主题、刷新保持）
+后端：cd server && .venv/bin/uvicorn app.main:app --port 8000 → http://localhost:8000/docs
